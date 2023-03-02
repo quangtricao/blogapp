@@ -6,10 +6,23 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-    "title": "blog 1",
+    "title": "blog 2",
     "author": "Quang Tri Cao",
-    "url": "abcdef.com"
+    "url": "abcdef.com",
+    "userId": "63ecf6b54ca492e128cb86fb"
 }
 
 ###
-DELETE http://localhost:3003/api/blogs/6400f558ec05c6f01c6781a9
+DELETE http://localhost:3003/api/blogs/640103bfae5840dcf4df0f98
+
+###
+GET http://localhost:3003/api/users
+
+###
+POST http://localhost:3003/api/users
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
