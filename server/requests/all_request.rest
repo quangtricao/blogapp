@@ -1,0 +1,15 @@
+GET http://localhost:3003/api/blogs
+
+###
+
+POST http://localhost:3003/api/blogs
+content-type: application/json
+
+{
+    "title": "blog 1",
+    "author": "Quang Tri Cao",
+    "url": "abcdef.com"
+}
+
+###
+DELETE http://localhost:3003/api/blogs/6400f558ec05c6f01c6781a9
