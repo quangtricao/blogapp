@@ -4,22 +4,32 @@ GET http://localhost:3003/api/blogs
 
 POST http://localhost:3003/api/blogs
 content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NDAxMGI5Njg5ZmYyNGVjZmFlYjExNDQiLCJpYXQiOjE2Nzc3OTAyNjJ9.xTqRdBBSAR3x33SBkYMMwbtxy0QrpZIMva7zHsht5Qw
 
 {
     "title": "blog 2",
     "author": "Quang Tri Cao",
-    "url": "abcdef.com",
-    "userId": "63ecf6b54ca492e128cb86fb"
+    "url": "abcdef.com"
 }
 
 ###
-DELETE http://localhost:3003/api/blogs/640103bfae5840dcf4df0f98
+DELETE http://localhost:3003/api/blogs/64010c6d1f38aa7841baea83
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NDAxMGI5Njg5ZmYyNGVjZmFlYjExNDQiLCJpYXQiOjE2Nzc3OTAyNjJ9.xTqRdBBSAR3x33SBkYMMwbtxy0QrpZIMva7zHsht5Qw
 
 ###
 GET http://localhost:3003/api/users
 
 ###
 POST http://localhost:3003/api/users
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+### Login
+POST http://localhost:3003/api/login
 content-type: application/json
 
 {

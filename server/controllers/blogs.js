@@ -1,7 +1,6 @@
 const blogsRouter = require("express").Router();
 
 const Blog = require("../models/blog");
-const User = require("../models/user");
 
 blogsRouter.get("/", async (request, response) => {
   const blogs = await Blog.find({}).populate("user", {
@@ -13,26 +12,47 @@ blogsRouter.get("/", async (request, response) => {
 });
 
 blogsRouter.post("/", async (request, response) => {
-  const user = await User.findById(request.body.userId);
+  if (!request.user) {
+    return response.status(401).json({ error: "token missing or invalid" });
+  }
 
+  const user = request.user;
   const blog = new Blog({ ...request.body, user: user.id });
   const savedBlog = await blog.save();
 
   user.blogs = user.blogs.concat(savedBlog._id);
   await user.save();
 
-  console.log(user);
-  console.log(savedBlog);
-  response.status(201).json(savedBlog);
+  const blogToReturn = await Blog.findById(savedBlog._id).populate("user", {
+    username: 1,
+    name: 1,
+  });
+
+  response.status(201).json(blogToReturn);
 });
 
 blogsRouter.delete("/:id", async (request, response) => {
+  const user = request.user;
   const blogToDelete = await Blog.findById(request.params.id);
   if (!blogToDelete) {
     return response.status(204).end();
   }
-  await Blog.findByIdAndRemove(request.params.id);
-  response.status(204).end();
+  if (user.blogs.includes(blogToDelete._id)) {
+    // remove blog's ID from "blogs" field in "users" collection
+    user.blogs = user.blogs.filter(
+      (blog) => blog._id.toString() !== blogToDelete._id.toString()
+    );
+    await user.save();
+
+    // remove Blog in "blogs" collection
+    await Blog.findByIdAndRemove(request.params.id);
+
+    response.status(204).end();
+  } else {
+    response.status(401).json({
+      error: "only the creator can delete a blog",
+    });
+  }
 });
 
 blogsRouter.put("/:id", async (request, response) => {
