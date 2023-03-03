@@ -100,3 +100,7 @@ Or runs tests with a specific name (or tests that contains parameters in their n
 ```sh
 npm test -- -t "test's name"
 ```
+
+## License
+
+This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
