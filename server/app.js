@@ -22,6 +22,13 @@ mongoose
     error("error connection to MongoDB:", e.message);
   });
 
+app.use(express.static("build"));   // path: "/"
+const path = require("path");
+app.use("/login", express.static(path.join(__dirname, "build")));
+app.use("/blogs/:id", express.static(path.join(__dirname, "build")));
+app.use("/users", express.static(path.join(__dirname, "build")));
+app.use("/users/:id", express.static(path.join(__dirname, "build")));
+
 app.use(cors());
 app.use(express.json());
 
