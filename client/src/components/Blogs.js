@@ -6,33 +6,33 @@ import NewBlogForm from "./NewBlogForm";
 import Togglable from "./Togglable";
 
 const Blogs = () => {
-	const blogs = useSelector((state) => state.blogs);
-	const blogFormRef = useRef();
+  const blogs = useSelector((state) => state.blogs);
+  const blogFormRef = useRef();
 
-	const blogStyle = {
-		padding: 10,
-		margin: 10,
-		borderStyle: "solid",
-		borderWidth: 1,
-	};
+  const blogStyle = {
+    padding: 10,
+    margin: 10,
+    borderStyle: "solid",
+    borderWidth: 1,
+  };
 
-	return (
-		<>
-			<h1>Blogs</h1>
-			<Togglable buttonLabel="new blog" ref={blogFormRef}>
-				<NewBlogForm />
-			</Togglable>
-			<br />
+  return (
+    <>
+      <h1>Blogs</h1>
+      <Togglable buttonLabel="new blog" ref={blogFormRef}>
+        <NewBlogForm />
+      </Togglable>
+      <br />
 
-			{blogs.map((blog) => (
-				<div key={blog.id} style={blogStyle}>
-					<Link to={`/blogs/${blog.id}`}>
-						{blog.title} by {blog.author}
-					</Link>
-				</div>
-			))}
-		</>
-	);
+      {blogs.map((blog) => (
+        <div key={blog.id} style={blogStyle}>
+          <Link to={`/blogs/${blog.id}`}>
+            {blog.title} by {blog.author}
+          </Link>
+        </div>
+      ))}
+    </>
+  );
 };
 
 export default Blogs;
