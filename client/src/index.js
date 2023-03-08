@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
-import LoginPage from "./LoginPage";
 import App from "./App";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import store from "./store";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -13,7 +13,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Router>
       <Routes>
         <Route path="/*" element={<App />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Routes>
     </Router>
   </Provider>

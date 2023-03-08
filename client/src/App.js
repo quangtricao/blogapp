@@ -31,26 +31,22 @@ const App = () => {
       dispatch(initializeBlog());
       dispatch(initializeUserList());
     } else {
-      navigate("/login");
+      navigate("/sign-in");
     }
   }, [dispatch, navigate]);
 
   const logout = () => {
     dispatch(logoutUserFromStore());
     userService.clearUserFromLocalStorage();
-    navigate("/login");
+    navigate("/sign-in");
     dispatch(setNotification({ message: "Log out!" }));
   };
 
   const matchBlog = useMatch("/blogs/:id");
-  const blog = matchBlog
-    ? blogs.find((blog) => blog.id === matchBlog.params.id)
-    : null;
+  const blog = matchBlog ? blogs.find((blog) => blog.id === matchBlog.params.id) : null;
 
   const matchUser = useMatch("/users/:id");
-  const user = matchUser
-    ? users.find((user) => user.id === matchUser.params.id)
-    : null;
+  const user = matchUser ? users.find((user) => user.id === matchUser.params.id) : null;
 
   if (loginUser === null) {
     return null;
@@ -63,7 +59,7 @@ const App = () => {
         <Link to="/users">users</Link> {"  "}
         {loginUser.username} {"  "} logged in
         <button id="log-out-button" onClick={logout}>
-                    logout
+          logout
         </button>
       </div>
 
@@ -73,7 +69,7 @@ const App = () => {
         <Route path="/" element={<Blogs />} />
         <Route path="/blogs/:id" element={<Blog blog={blog} />} />
         <Route path="/users" element={<Users />} />
-        <Route path="/users/:id" element={<User user={user}/>} />
+        <Route path="/users/:id" element={<User user={user} />} />
       </Routes>
       <br />
 
