@@ -41,11 +41,16 @@ export const createBlog = (blog) => {
       dispatch(add(response));
       dispatch(
         setNotification({
-          message: `a new blog '${blog.title}' by ${blog.author} added`,
+          message: "A new blog added",
         })
       );
     } catch (error) {
-      console.log(error);
+      dispatch(
+        setNotification({
+          message: error.response.data.error,
+          type: "error"
+        })
+      );
     }
   };
 };
@@ -55,24 +60,39 @@ export const removeBlog = (id) => {
     try {
       await blogService.remove(id);
       dispatch(remove(id));
+      dispatch(
+        setNotification({
+          message: "Delete blog",
+        })
+      );
     } catch (error) {
-      console.log(error);
+      dispatch(
+        setNotification({
+          message: error.response.data.error,
+          type: "error",
+        })
+      );
     }
   };
 };
 
-export const reactToBlog = (blog) => {
+export const reactToBlog = (blog, activity) => {
   return async (dispatch) => {
     try {
       const response = await blogService.update(blog.id, blog);
       dispatch(update(response));
       dispatch(
         setNotification({
-          message: `you like '${blog.title}' by ${blog.author}`,
+          message: `You ${activity === "comment" ? "comment" : "like "} the blog`,
         })
       );
     } catch (error) {
-      console.log(error);
+      dispatch(
+        setNotification({
+          message: error.response.data.error,
+          type: "error"
+        })
+      );
     }
   };
 };
