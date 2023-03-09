@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeBlog, reactToBlog } from "../reducers/blogs";
 import { useField } from "../hooks/input";
 import { useNavigate } from "react-router-dom";
+import { Button, TextField } from "@mui/material/";
 
 const Blog = ({ blog }) => {
   const dispatch = useDispatch();
@@ -26,8 +27,7 @@ const Blog = ({ blog }) => {
     navigate("/");
   };
 
-  const addComment = (event, blog) => {
-    event.preventDefault();
+  const addComment = (blog) => {
     if (window.confirm("post comment?")) {
       const newBlog = {
         ...blog,
@@ -50,47 +50,56 @@ const Blog = ({ blog }) => {
   return (
     <>
       <div>
-        <button onClick={backMainPage}>back</button>
+        <Button variant="contained" sx={{ mt: 2 }} onClick={backMainPage}>
+          back
+        </Button>
         <h2>{blog.title}</h2>
+
         <div>
-					URL: <a href={blog.url}>{blog.url}</a>
+          URL: <a href={blog.url}>{blog.url}</a>
         </div>
         <div>
-					likes: {blog.likes}{" "}
-          <button
-            id="like-button"
-            style={{ color: "red" }}
+          likes: {blog.likes}{" "}
+          <Button
+            size="small"
+            variant="outlined"
+            sx={{ ml: 3 }}
             onClick={() => {
               updateLike(blog);
             }}
           >
             {" "}
-						like{" "}
-          </button>
+            like{" "}
+          </Button>
         </div>
         <div>Author: {blog.author ? blog.author : "Anonymous"}</div>
 
         {/* only renders remove button to the user who created the blog */}
         {blog.user.username === user.username ? (
-          <button
-            id="remove-button"
-            style={{ color: "blue" }}
+          <Button
+            variant="outlined"
+            size="small"
+            sx={{ backgroundColor: "red", color: "white" }}
             onClick={() => {
               deleteBlog(blog);
             }}
           >
-						remove
-          </button>
+            DELETE
+          </Button>
         ) : (
           <></>
         )}
 
         <h3>comments</h3>
-
-        <form onSubmit={(event) => addComment(event, blog)}>
-          <input {...comment.fields} />{" "}
-          <button> add comment</button>
-        </form>
+        <TextField
+          label="Add your thought"
+          size="small"
+          sx={{ mr: 1 }}
+          {...comment.fields}
+        ></TextField>
+        <Button variant="contained" onClick={() => addComment(blog)}>
+          add comment
+        </Button>
         <br />
 
         <ul>

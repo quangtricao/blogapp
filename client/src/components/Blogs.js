@@ -10,6 +10,7 @@ import {
   TableRow,
   TableContainer,
   TablePagination,
+  TextField,
 } from "@mui/material";
 
 import NewBlogForm from "./NewBlogForm";
@@ -21,6 +22,7 @@ const Blogs = () => {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [filter, setFilter] = useState("");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -31,13 +33,24 @@ const Blogs = () => {
     setPage(0);
   };
 
+  const filteredBlog =
+    filter.length === 0
+      ? blogs
+      : blogs.filter((p) => p.title.toLowerCase().includes(filter.toLowerCase()));
+
   return (
     <>
-      <h1>Blogs</h1>
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
         <NewBlogForm toggleVisibility={() => blogFormRef.current.toggleVisibility()} />
       </Togglable>
-      <br />
+
+      <TextField
+        size="small"
+        value={filter}
+        onChange={(event) => setFilter(event.target.value)}
+        label="Filter by name"
+        sx={{ my: 2 }}
+      />
 
       <TableContainer sx={{ maxHeight: 500 }}>
         <Table sx={{ minWidth: 800 }}>
@@ -49,15 +62,17 @@ const Blogs = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {blogs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((blog) => (
-              <TableRow hover key={blog.id}>
-                <TableCell>
-                  <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-                </TableCell>
-                <TableCell align="right">{blog.author}</TableCell>
-                <TableCell align="right">{blog.likes}</TableCell>
-              </TableRow>
-            ))}
+            {filteredBlog
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((blog) => (
+                <TableRow hover key={blog.id}>
+                  <TableCell>
+                    <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                  </TableCell>
+                  <TableCell align="right">{blog.author}</TableCell>
+                  <TableCell align="right">{blog.likes}</TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

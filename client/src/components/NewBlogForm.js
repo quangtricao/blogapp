@@ -26,7 +26,6 @@ const NewBlogForm = ({ toggleVisibility }) => {
 
   return (
     <>
-      <h2>Create new</h2>
       <Box
         sx={{
           marginTop: 2,
@@ -39,7 +38,13 @@ const NewBlogForm = ({ toggleVisibility }) => {
         <TextField size="small" label="Author" {...author.fields} sx={{ mt: 1 }} />
         <TextField size="small" label="Url" {...url.fields} sx={{ mt: 1 }} />
       </Box>
-      <Button onClick={handleSubmit} type="submit" variant="contained" sx={{ my: 3, mr: 1 }}>
+      <Button
+        size="small"
+        onClick={handleSubmit}
+        type="submit"
+        variant="contained"
+        sx={{ my: 1, mr: 1 }}
+      >
         Create
       </Button>
     </>

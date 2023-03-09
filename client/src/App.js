@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useMatch } from "react-router-dom";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import { loginUserToStore, logoutUserFromStore } from "./reducers/user";
 import { setNotification } from "./reducers/notification";
@@ -13,8 +13,14 @@ import Blogs from "./components/Blogs";
 import User from "./components/User";
 import Users from "./components/Users";
 import Notification from "./components/Notification";
+import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
 
 import userService from "./services/user";
+
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -53,28 +59,30 @@ const App = () => {
   }
 
   return (
-    <>
-      <div>
-        <Link to="/">blogs</Link> {"  "}
-        <Link to="/users">users</Link> {"  "}
-        {loginUser.username} {"  "} logged in
-        <button id="log-out-button" onClick={logout}>
-          logout
-        </button>
-      </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        minHeight: "100vh",
+      }}
+    >
+      <CssBaseline />
+      <Box>
+        <NavBar user={loginUser.username} logout={logout} />
+        <Notification />
+        <Container maxWidth="xl">
+          <Routes>
+            <Route path="/" element={<Blogs />} />
+            <Route path="/blogs/:id" element={<Blog blog={blog} />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/users/:id" element={<User user={user} />} />
+          </Routes>
+        </Container>
+      </Box>
 
-      <Notification />
-
-      <Routes>
-        <Route path="/" element={<Blogs />} />
-        <Route path="/blogs/:id" element={<Blog blog={blog} />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/users/:id" element={<User user={user} />} />
-      </Routes>
-      <br />
-
-      {/* Footer */}
-    </>
+      <Footer />
+    </Box>
   );
 };
 
