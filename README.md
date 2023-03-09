@@ -6,6 +6,10 @@ A blogapp application illustrates User administration: user can register an acco
 
 The deployed application is hosted at: https://still-surf-6512.fly.dev
 
+The admin account:
+* Username: admin
+* Password: admin
+
 ## Table of Contents
 
 - [Introduction](#overview)
