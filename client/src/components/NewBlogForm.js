@@ -1,6 +1,7 @@
 import { createBlog } from "../reducers/blogs";
 import { useDispatch } from "react-redux";
 import { useField } from "../hooks/input";
+import { TextField, Box, Button } from "@mui/material";
 
 const NewBlogForm = ({ toggleVisibility }) => {
   const dispatch = useDispatch();
@@ -24,35 +25,24 @@ const NewBlogForm = ({ toggleVisibility }) => {
   };
 
   return (
-    <div>
+    <>
       <h2>Create new</h2>
-
-      <form onSubmit={handleSubmit}>
-        <table>
-          <tbody>
-            <tr>
-              <td>title</td>
-              <td>
-                <input {...title.fields} />
-              </td>
-            </tr>
-            <tr>
-              <td>author</td>
-              <td>
-                <input {...author.fields} />
-              </td>
-            </tr>
-            <tr>
-              <td>url</td>
-              <td>
-                <input {...url.fields} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button>create</button>
-      </form>
-    </div>
+      <Box
+        sx={{
+          marginTop: 2,
+          display: "flex",
+          flexDirection: "column",
+          width: "40%",
+        }}
+      >
+        <TextField size="small" label="Title" {...title.fields} sx={{ mt: 1 }} />
+        <TextField size="small" label="Author" {...author.fields} sx={{ mt: 1 }} />
+        <TextField size="small" label="Url" {...url.fields} sx={{ mt: 1 }} />
+      </Box>
+      <Button onClick={handleSubmit} type="submit" variant="contained" sx={{ my: 3, mr: 1 }}>
+        Create
+      </Button>
+    </>
   );
 };
 
