@@ -1,19 +1,26 @@
-import { useState } from "react";
 import { createBlog } from "../reducers/blogs";
 import { useDispatch } from "react-redux";
+import { useField } from "../hooks/input";
 
-const NewBlogForm = () => {
+const NewBlogForm = ({ toggleVisibility }) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
+  const title = useField("text");
+  const author = useField("text");
+  const url = useField("text");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(createBlog({ title, author, url }));
-    setAuthor("");
-    setTitle("");
-    setUrl("");
+    dispatch(
+      createBlog({
+        title: title.fields.value,
+        author: author.fields.value,
+        url: url.fields.value,
+      })
+    );
+    title.reset();
+    author.reset();
+    url.reset();
+    toggleVisibility();
   };
 
   return (
@@ -26,34 +33,19 @@ const NewBlogForm = () => {
             <tr>
               <td>title</td>
               <td>
-                <input
-                  value={title}
-                  onChange={({ target }) =>
-                    setTitle(target.value)
-                  }
-                />
+                <input {...title.fields} />
               </td>
             </tr>
             <tr>
               <td>author</td>
               <td>
-                <input
-                  value={author}
-                  onChange={({ target }) =>
-                    setAuthor(target.value)
-                  }
-                />
+                <input {...author.fields} />
               </td>
             </tr>
             <tr>
               <td>url</td>
               <td>
-                <input
-                  value={url}
-                  onChange={({ target }) =>
-                    setUrl(target.value)
-                  }
-                />
+                <input {...url.fields} />
               </td>
             </tr>
           </tbody>
