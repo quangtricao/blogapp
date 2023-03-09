@@ -19,10 +19,15 @@ In the application, user can login with their account, register a new account an
 
 Each blog is associated with the user who created it so that only that user can delete it. Other users can only "like" the blog.
 
+Any users can comment on a blog, the comment stays anonymous.
+
+
 Frontend is initialized with the create-react-app tool, the application's state is managed by Redux library.
 
 In backend, the Express library is used to ease server-side development with NodeJS. Generating Password hashes happens with the bcrypt package
 while the jsonwebtoken library enables developers to generate JSON web tokens. To send the token from the browser to the server, the Authorization header is used, in this case, The Bearer scheme is used.
+
+Styling is done with the help of the [Material UI](https://mui.com) framework.
 
 MongoDB serves as database for the application. The project use the Mongoose library to make interacting with MongoDB much easier.
 
@@ -53,7 +58,6 @@ devDependencies:
 * nodemon: ^2.0.21
 * eslint: ^8.35.0
 * jest: ^29.4.3
-* nodemon: ^2.0.21
 * supertest: ^6.3.3
 
 ## Installation
